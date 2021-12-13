@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loadgenerator
+spec:
+  selector:
+    matchLabels:
+      app: loadgenerator
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: loadgenerator
+      annotations:
+        sidecar.istio.io/rewriteAppHTTPProbers: "true"
+    spec:
+      serviceAccountName: default
+      terminationGracePeriodSeconds: 5
+      restartPolicy: Always
+      containers:
+      - name: main
+        image: salehsedghpour/loadgenerator:prev-git
+        imagePullPolicy: Always
+        env:
+        - name: FRONTEND_ADDR
+          value: "frontend/cart"
+        - name: BODY
+          value: "email=someone%40example.com&street_address=1600+Amphitheatre+Parkway&zip_code=94043&city=Mountain+View&state=CA&country=United+States&credit_card_number=4432-8015-6152-0454&credit_card_expiration_month=1&credit_card_expiration_year=2022&credit_card_cvv=672"
+        - name: HEADER
+          value: "application/x-www-form-urlencoded"
+        - name: STRING_COMMAND
+          value: "
+
+             setConcurrency 230;
+             sleep 200000;
+
+          "
+        resources:
+          requests:
+            cpu: 1000m
+            memory: 256Mi
+          limits:
+            cpu: 1000m
+            memory: 512Mi
+
