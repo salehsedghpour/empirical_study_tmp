@@ -1,4 +1,4 @@
-"""Deploy all services (online boutique) with to the cluster"""
+"""Deploy all services (online boutique) to the cluster"""
 from kubernetes import client, config
 import utils, yaml, logging, time
 
@@ -28,7 +28,6 @@ for service in all_services:
         dep = yaml.safe_load(f)
         utils.create_deployment(deployment_api, dep, cpu=configuration['svc_cpu'],
                                 memory=configuration['svc_memory'])
-        deployment_api.delete_deployment
     f.close()
     with open('./yaml-files/Service/' + service + '.yaml') as f:
         dep = yaml.safe_load(f)
