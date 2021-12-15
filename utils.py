@@ -351,9 +351,7 @@ def get_response_time_from_prometheus(service, start, end, percentile):
     :return:
     """
     prom = PrometheusConnect(url=config.prom_address, disable_ssl=True)
-    query = '(histogram_quantile('+str(percentile)+', sum(irate(istio_request_duration_milliseconds_bucket{ destination_service=~"'+service+'' \
-        '.default.svc.cluster.local"}[1m])) by (source_workload, le)) / 1000) or histogram_quantile('+str(percentile)+'' \
-          ', sum(irate(istio_request_duration_seconds_bucket{destination_service=~".default.svc.cluster.local"}[1m])) by (source_workload, le))'
+    query = '(histogram_quantile('+str(percentile)+', sum(irate(istio_request_duration_milliseconds_bucket{reporter="source", destination_service=~"'+service+'.default.svc.cluster.local"}[1m])) by (le)) / 1000)'
     start = datetime.datetime.fromtimestamp((start+9000)/1000)
     end = datetime.datetime.fromtimestamp((end-3000)/1000)
     result = prom.custom_query_range(query=query, start_time=start, end_time=end, step=15)
