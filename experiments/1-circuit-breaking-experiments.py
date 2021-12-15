@@ -82,7 +82,9 @@ def online_boutique():
                 utils.create_circuit_breaker(customobject_api, service, cb_value)
             logging.info("Wait {wait_time} seconds for configuring cb.".format(wait_time=configuration['configure_wait_time']))
             time.sleep(configuration['configure_wait_time'])
+
             # Repeat of each single experiment
+            logging.info("Performing the experiments")
             for i in range(configuration['repeat_factor']):
                 start = str(int(time.time() * 1000) - configuration['experiment_time_margin']['start'])
                 time.sleep(configuration['single_experiment_duration'])
@@ -127,6 +129,7 @@ def online_boutique():
             time.sleep(configuration['configure_wait_time'])
 
             # Repeat of each single experiment
+            logging.info("Performing the experiments")
             for i in range(configuration['repeat_factor']):
                 start = str(int(time.time() * 1000) - configuration['experiment_time_margin']['start'])
                 time.sleep(configuration['single_experiment_duration'])
@@ -170,6 +173,7 @@ def online_boutique():
             logging.info("Wait {wait_time} seconds for configuring cb.".format(
                     wait_time=configuration['configure_wait_time']))
             # Repeat of each single experiment
+            logging.info("Performing the experiments")
             for i in range(configuration['repeat_factor']):
                 start = str(int(time.time() * 1000) - configuration['experiment_time_margin']['start'])
                 time.sleep(configuration['single_experiment_duration'])
@@ -213,6 +217,7 @@ def online_boutique():
             logging.info("Wait {wait_time} seconds for configuring cb.".format(
                     wait_time=configuration['configure_wait_time']))
             # Repeat of each single experiment
+            logging.info("Performing the experiments")
             for i in range(configuration['repeat_factor']):
                 start = str(int(time.time() * 1000) - configuration['experiment_time_margin']['start'])
                 time.sleep(configuration['single_experiment_duration'])
