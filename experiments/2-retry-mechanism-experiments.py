@@ -95,6 +95,7 @@ def online_boutique():
                 wait_time=configuration['configure_wait_time']))
 
             # Repeat of each single experiment
+            logging.info("Performing the experiments")
             for i in range(configuration['repeat_factor']):
                 start = str(int(time.time() * 1000) - configuration['experiment_time_margin']['start'])
                 time.sleep(configuration['single_experiment_duration'])
@@ -163,6 +164,7 @@ def online_boutique():
                 wait_time=configuration['configure_wait_time']))
 
             # Repeat of each single experiment
+            logging.info("Performing the experiments")
             for i in range(configuration['repeat_factor']):
                 start = str(int(time.time() * 1000) - configuration['experiment_time_margin']['start'])
                 time.sleep(configuration['single_experiment_duration'])
@@ -219,9 +221,6 @@ def online_boutique():
         experiment_duration = configuration['experiment_duration']
         traffic_scenario = "setConcurrency {concurrency}; sleep {duration};".format(concurrency=concurrency_value,
                                                                                     duration=experiment_duration)
-        print(traffic_scenario)
-        #traffic_scenario = "setConcurrency {concurrency}; sleep {duration};".format(concurrency=concurrency_value,
-        #                                                                            duration=experiment_duration)
         deploy_loadgenerator(traffic_scenario)
         for timeout in configuration["retry_timeouts"]:
             # configuration on all layers
@@ -235,6 +234,7 @@ def online_boutique():
                 wait_time=configuration['configure_wait_time']))
 
             # Repeat of each single experiment
+            logging.info("Performing the experiments")
             for i in range(configuration['repeat_factor']):
                 start = str(int(time.time() * 1000) - configuration['experiment_time_margin']['start'])
                 time.sleep(configuration['single_experiment_duration'])
@@ -309,6 +309,7 @@ def online_boutique():
                     wait_time=configuration['configure_wait_time']))
 
                 # Repeat of each single experiment
+                logging.info("Performing the experiments")
                 for i in range(configuration['repeat_factor']):
                     start = str(int(time.time() * 1000) - configuration['experiment_time_margin']['start'])
                     time.sleep(configuration['single_experiment_duration'])
@@ -391,6 +392,7 @@ def online_boutique():
                 logging.info("Wait {wait_time} seconds for configuring cb.".format(
                     wait_time=configuration['configure_wait_time']))
                 time.sleep(configuration['configure_wait_time'])
+                logging.info("Performing the experiments")
                 for i in range(configuration['repeat_factor']):
                     start = str(int(time.time() * 1000) - configuration['experiment_time_margin']['start'])
                     time.sleep(configuration['single_experiment_duration'])
