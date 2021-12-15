@@ -21,6 +21,7 @@ configuration = {
     #   The recorded capacity should be rewritten here.
     #
     "capacities": {
+        # Update me
         "online_boutique": 230
     },
     "experiment_time_margin": {
