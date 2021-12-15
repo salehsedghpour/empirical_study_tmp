@@ -1,5 +1,8 @@
-import logging,yaml
+import logging,datetime
 from kubernetes.client.rest import ApiException
+from prometheus_api_client import PrometheusConnect
+import config
+
 
 
 logging.basicConfig(format='%(asctime)s - [%(levelname)s]  %(message)s', datefmt='%d/%m/%Y %I:%M:%S', level=logging.INFO)
@@ -320,3 +323,38 @@ def patch_circuit_breaker(api_instance, service_name, max_requests):
     except ApiException as e:
         logging.warning("Circuit breaker update for service %s is not completed. %s" % (str(service_name), str(e)))
         return False
+
+
+def get_status_codes_from_prometheus(service, start, end):
+    """
+    This function will get the  total requests for given service in given time interval
+    :param service:
+    :param start:
+    :param end:
+    :return:
+    """
+    prom = PrometheusConnect(url=config.prom_address, disable_ssl=True)
+    query = 'round(sum(irate(istio_requests_total{destination_service=~"'+service+'' \
+            '.default.svc.cluster.local", reporter="source"}[1m])) by (response_code, response_flags), 0.001)'
+    start = datetime.datetime.fromtimestamp((start+9000)/1000)
+    end = datetime.datetime.fromtimestamp((end-3000)/1000)
+    result = prom.custom_query_range(query=query, start_time=start, end_time=end, step=15)
+    return result
+
+
+def get_response_time_from_prometheus(service, start, end, percentile):
+    """
+    This function will get the  response time for given service in given time interval
+    :param service:
+    :param start:
+    :param end:
+    :return:
+    """
+    prom = PrometheusConnect(url=config.prom_address, disable_ssl=True)
+    query = '(histogram_quantile('+str(percentile)+', sum(irate(istio_request_duration_milliseconds_bucket{ destination_service=~"'+service+'' \
+        '.default.svc.cluster.local"}[1m])) by (source_workload, le)) / 1000) or histogram_quantile('+str(percentile)+'' \
+          ', sum(irate(istio_request_duration_seconds_bucket{destination_service=~".default.svc.cluster.local"}[1m])) by (source_workload, le))'
+    start = datetime.datetime.fromtimestamp((start+9000)/1000)
+    end = datetime.datetime.fromtimestamp((end-3000)/1000)
+    result = prom.custom_query_range(query=query, start_time=start, end_time=end, step=15)
+    return result
