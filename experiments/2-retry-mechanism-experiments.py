@@ -12,7 +12,7 @@ configuration = {
     # Services deployment configuration
     "svc_cpu": "2000m",
     "svc_memory": "2000Mi",
-    "deployment_wait_time": 120,
+    "deployment_wait_time": 30,
     "configure_wait_time": 30,
     # experiment configurations
     "cb_values": [1, 20, 1024],
