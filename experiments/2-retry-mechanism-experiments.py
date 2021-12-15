@@ -88,7 +88,7 @@ def online_boutique():
             # configuration on all layers
             logging.info("Starting the experiments for all layers")
             for service in layer_3_services:
-                utils.create_retry(customobject_api, service, 2, "")
+                utils.create_retry(customobject_api, service, 2, "1ms")
                 utils.create_circuit_breaker(customobject_api, service, cb)
             time.sleep(configuration['configure_wait_time'])
             logging.info("Wait {wait_time} seconds for configuring retry.".format(
@@ -157,7 +157,7 @@ def online_boutique():
             for service in layer_3_services:
                 cb = 1
                 utils.create_circuit_breaker(customobject_api, service, cb)
-                utils.create_retry(customobject_api, service, retry, "")
+                utils.create_retry(customobject_api, service, retry, "1ms")
 
             time.sleep(configuration['configure_wait_time'])
             logging.info("Wait {wait_time} seconds for configuring retry and cb.".format(
