@@ -14,7 +14,7 @@ This repository contains scripts that help run the traffic management policies e
 ## Local dependencies
 
 These are local dependencies to run the experiment script and parse the outputs into a report with a graph.
-- [Python 3.9.0](https://www.python.org/)
+- [Python 3.8.0](https://www.python.org/)
   - See [requirements.txt](requirements.txt)
 - [Docker 19.03.15](https://www.docker.com/)
 - [Kubernetes 1.19.14](https://kubernetes.io/)
@@ -116,6 +116,10 @@ Before installing it, we should configure it in on of the following ways:
                 - --web.console.templates=/etc/prometheus/consoles
             ```
 ## Deploy Services
+To run all scripts in the repository, you need to install all required packages:
+```
+pip3 install -r requirements.txt
+```
 Before we get started, we should deploy all services by simply running the following:
 ```
 python deploy_all_services.py
