@@ -12,7 +12,7 @@ challenging_services = ["frontend", "recommendationservice", "productcatalogserv
 retry_timeouts= ["25ms", "5s", "20s"]
 
 
-df = pd.read_csv('./logs/retry-experiments.log')
+df = pd.read_csv('../logs/retry-experiments.log')
 
 fig, axs = plt.subplots(nrows=4, ncols=4, figsize=(9, 9), sharex=True, sharey=True,dpi=300)
 
