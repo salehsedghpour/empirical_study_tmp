@@ -401,12 +401,26 @@ def online_boutique():
                     # write to the csv
                     with open(configuration['log_dir'] + file_name, 'a') as csv_file:
                         writer = csv.writer(csv_file, delimiter=",")
+                        configuration['svc_cpu'],  # cpu
+                        configuration['svc_memory'],  # memory
+                        'all',  # configured_layers
+                        traffic_ratio,  # traffic_ratio
+                        spike,  # spike_ratio
+                        20,  # circuit_breaker
+                        retry,  # retry_attempts
+                        timeout,  # retry_timeouts
+                        start,  # start
+                        end,  # end
+                        i,  # attempt
                         writer.writerow([
                             configuration['svc_cpu'],
                             configuration['svc_memory'],
                             str([layer_cb,layer_retry]),
                             traffic_ratio,
+                            0,  # spike_ratio
                             cb,
+                            0,  # retry_attempts
+                            0,  # retry_timeouts
                             start,
                             end,
                             i,
