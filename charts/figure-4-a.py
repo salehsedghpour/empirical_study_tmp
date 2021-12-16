@@ -151,7 +151,7 @@ plt.xticks([0, 60, 120, 180, 240])
 plt.tight_layout()
 
 #plt.show()
-plt.savefig("fig-4-a.pdf",format="pdf", bbox_inches='tight', pad_inches = 0)
+plt.savefig("./output/fig-4-a.pdf",format="pdf", bbox_inches='tight', pad_inches = 0)
 
 
 

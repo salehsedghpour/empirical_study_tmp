@@ -95,7 +95,7 @@ for layer in configuration_layer:
         axs.set_xlabel("Response Time (sec)")
 
 plt.tight_layout()
-plt.savefig("figure-4-b.pdf",format='pdf', bbox_inches='tight', pad_inches = 0.1)
+plt.savefig("./output/figure-4-b.pdf",format='pdf', bbox_inches='tight', pad_inches = 0.1)
 
 
 
