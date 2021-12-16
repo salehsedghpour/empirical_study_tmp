@@ -30,7 +30,7 @@ capacity_online_boutique = 230
 challenging_services = ["frontend", "recommendationservice", "productcatalogservice"]
 retry_timeouts= ["25ms", "5s", "20s"]
 
-df = pd.read_csv('../logs/retry-experiments.csv')
+df = pd.read_csv('../logs/retry-experiments.log')
 
 
 fig, axs = plt.subplots(nrows=3, ncols=3, figsize=(8, 8), sharex=True, sharey=True,dpi=300)

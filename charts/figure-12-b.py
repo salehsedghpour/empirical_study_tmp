@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-df = pd.read_csv('./logs/retry-experiments.csv')
+df = pd.read_csv('./logs/retry-experiments.log')
 
 
 fig, axs = plt.subplots(nrows=1, ncols=4, figsize=(10, 3),dpi=300)
