@@ -6,8 +6,8 @@ This repository contains scripts that help run the traffic management policies e
 2. Deploy services ([section](#deploy-services))
 3. Perform the experiment sizing ([section](#perform-the-experiment-sizing))
 4. Pick an experiment to run, and edit the initial setups. ([section](#run-the-experiments))
-5. Draw the charts
-6. Clean up
+5. Draw the charts. ([section](#draw-the-charts))
+6. Clean up. ([section](#clean-up))
 
 
 
@@ -160,6 +160,39 @@ python 2-retry-mechanism-experiments.py
 If you wish to perform experiments for different traffic scenarios, different circuit breaking, different durations,
 different retry mechanism, different repetition of each experiment and etc., just update the configuration part of the 
 [experiment file](experiments/2-retry-mechanism-experiments.py).
+
+
+## Draw the charts
+To draw the charts, you need to first run the experiments as discussed in [previous section](#run-the-experiments).
+Before jumpling to drawin, you should edit address of **Prometheus** in the [`config.py`](config.py) file. 
+Run the following to get IP of **Prometheus** instance:
+```
+~ kubectl get svc -n istio-system
+NAME                   TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)                                      AGE
+istio-ingressgateway   LoadBalancer   10.102.191.32    <pending>     15021:32605/TCP,80:30690/TCP,443:31947/TCP   93d
+istiod                 ClusterIP      10.111.219.110   <none>        15010/TCP,15012/TCP,443/TCP,15014/TCP        93d
+jaeger-collector       ClusterIP      10.100.29.41     <none>        14268/TCP,14250/TCP,9411/TCP                 82d
+prometheus             ClusterIP      10.104.156.162   <none>        9090/TCP                                     93d
+tracing                ClusterIP      10.103.63.142    <none>        80/TCP,16685/TCP                             82d
+zipkin                 ClusterIP      10.107.209.224   <none>        9411/TCP                                     82d
+```
+In the above example, you can see that the instance has the `10.104.156.162` address and is working on port `9090`.
+We have splitted the drawing section to the figures in the paper, it means that each charts in the paper has its own
+implementation here in [charts directory](charts). For instance, if you intend to draw the Figure 4-a in the paper,
+just run:
+```
+cd charts
+python figure-4-a.py
+```
+
+
+## Clean up
+After doing all experiments, if you intend to clean up your infrastructure, just run the clean up script.
+
+```
+python clean_up.py
+```
+
 
           
           
