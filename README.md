@@ -69,7 +69,7 @@ Before installing it, we should configure it in on of the following ways:
   
         kubectl apply -f <istio-1.11.2>/samples/addons/pre-configured-prometheus.yaml
     ```
-
+If you want to configure it yourself, just follow:
 - As we are going to monitor the service mesh every 5 seconds, we should change the scrape interval to 5 seconds:
     - In line 37 and 38 of yaml file change the values of `scrape_interval` and `scrape_timeout` to 5 seconds as follows:
       ```
