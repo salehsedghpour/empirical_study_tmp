@@ -2,6 +2,11 @@
 The experiment sizing is just a measurement of the capacity of system
 The capacity is defined by the average throughput when the average 95th percentile response times reaches to 100ms
 """
+import os, sys
+currentdir = os.path.dirname(os.path.realpath(__file__))
+parentdir = os.path.dirname(currentdir)
+sys.path.append(parentdir)
+
 from kubernetes import client, config
 import utils, yaml, logging, time, re
 from kubernetes.stream import stream
@@ -11,7 +16,7 @@ config.load_kube_config()
 deployment_api = client.AppsV1Api()
 logging.basicConfig(format='%(asctime)s - [%(levelname)s]  %(message)s', datefmt='%d/%m/%Y %I:%M:%S', level=logging.INFO)
 
-with open('../yaml-files/Deployment/loadgenerator.yaml') as f:
+with open('./yaml-files/Deployment/loadgenerator.yaml') as f:
     dep = yaml.safe_load(f)
     traffic_scenario = """
     for j in {100..500..10};
