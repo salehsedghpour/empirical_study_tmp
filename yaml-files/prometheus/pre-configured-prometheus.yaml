@@ -417,7 +417,8 @@ spec:
         chart: prometheus-14.3.0
         heritage: Helm
     spec:
-      nodeName: r10
+      # Update the nodeName with your node name
+      nodeName: gke-cluster-1-default-pool-7afb9a2c-4cw3
       serviceAccountName: prometheus
       containers:
         - name: prometheus-server-configmap-reload
