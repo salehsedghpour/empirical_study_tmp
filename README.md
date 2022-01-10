@@ -1,4 +1,6 @@
 # Reproduce traffic management policies experiments
+[![DOI](https://zenodo.org/badge/438598541.svg)](https://zenodo.org/badge/latestdoi/438598541)
+
 This repository contains scripts that help run the traffic management policies experiments from our ICPE '22 paper.
 
 ## Overview
