@@ -48,7 +48,12 @@ We used `kubeadm init --apiserver-advertise-address <address-of-master-node> --p
 
 ## Install and configure Prometheus
 By default, Istio provide Prometheus as an add-on which could be found in `<istio-1.11.2>/samples/addons/prometheus.yaml`.
-As we are going to save the data in case of pod failure, we should mount the pod storage to the node storage as follows:
+If you don't want to save the data for longer period, you can simply use that one simply by:
+```
+kubectl apply -f <istio-1.11.2>/samples/addons/prometheus.yaml
+```
+
+But if we are going to save the data for longer period or save the data in case of pod failure, we should mount the pod storage to the node storage as follows:
 1. We first should specify on which node we are going to run Prometheus and save it's data, then create the following directories:
     ```
     ssh <name-of-specified-node-in-cluster>
@@ -63,8 +68,9 @@ As we are going to save the data in case of pod failure, we should mount the pod
         kubectl apply -f yaml-files/volumes/
     ```
     
-Before installing it, we should configure it in on of the following ways:
-- You can simply use our pre-configured Prometheus in [`yaml-files/prometheus`](yaml-files/prometheus/pre-configured-prometheus.yaml):
+Before installing it, we should configure it in one of the following ways:
+- You can simply use our pre-configured Prometheus in [`yaml-files/prometheus`](yaml-files/prometheus/pre-configured-prometheus.yaml),
+  You need to update the nodeName in based on your need:
     ```
         # Copy the yaml file into the `<istio-1.11.2>/samples/addons/' directory:
         cp yaml-files/prometheus/pre-configured-prometheus.yaml <istio-1.11.2>/samples/addons/
@@ -134,7 +140,6 @@ Before jumping to main experiments, we should just estimate the capacity of our 
 First of all we need to deploy all services by simply following the instruction in [previous section](#deploy-services).
 To run the experiment sizing:
 ```
-cd experiments
 python experiments/0-experiment-sizing.py
 ```
 When the execution is done, it prints the capacity, keep it for further experiments.
@@ -150,8 +155,7 @@ and the other one for [different retry mechanisms](#run-the-retry-mechanism-expe
 To run the exact circuit breaking experiments as paper, you need to first update capacity parameter in configuration the 
 [experiment file](experiments/1-circuit-breaking-experiments.py) and then:
 ```
-cd experiments
-python 1-circuit-breaking-experiments.py
+python experiments/1-circuit-breaking-experiments.py
 ```
 If you wish to perform experiments for different traffic scenarios, different circuit breaking, different durations,
 different repetition of each experiment and etc., just update the configuration part of the [experiment file](experiments/1-circuit-breaking-experiments.py).
@@ -160,8 +164,7 @@ different repetition of each experiment and etc., just update the configuration 
 To run the exact retry mechanism experiments as paper, you need to first update capacity parameter in configuration the 
 [experiment file](experiments/2-retry-mechanism-experiments.py) and then:
 ```
-cd experiments
-python 2-retry-mechanism-experiments.py
+python experiments/2-retry-mechanism-experiments.py
 ```
 If you wish to perform experiments for different traffic scenarios, different circuit breaking, different durations,
 different retry mechanism, different repetition of each experiment and etc., just update the configuration part of the 
@@ -187,10 +190,16 @@ We have splitted the drawing section to the figures in the paper, it means that 
 implementation here in [charts directory](charts). For instance, if you intend to draw the Figure 4-a in the paper,
 just run:
 ```
-cd charts
-python figure-4-a.py
+python charts/figure-4-a.py
 ```
 
+### Draw the chart based on the provided data
+In order to redraw the charts, without running the experiments (using performed experiments in the paper), **don't** change 
+the [`config.py`](config.py) file and just run the chart scripts:
+```
+python charts/figure-4-a.py
+
+```
 
 ## Clean up
 After doing all experiments, if you intend to clean up your infrastructure, just run the clean up script.
