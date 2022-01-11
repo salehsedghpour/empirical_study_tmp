@@ -1,3 +1,8 @@
+import os, sys
+currentdir = os.path.dirname(os.path.realpath(__file__))
+parentdir = os.path.dirname(currentdir)
+sys.path.append(parentdir)
+
 import pandas as pd
 import matplotlib.pyplot as plt
 import json
@@ -7,7 +12,7 @@ static_traffic_ratio = [1.2]
 configuration_layer = [1, 2, 3, 'all']
 capacity_online_boutique = 230
 
-df_cb = pd.read_csv('../logs/cb-experiment.log')
+df_cb = pd.read_csv('./logs/cb-experiment.log')
 
 
 fig, axs = plt.subplots(nrows=1, ncols=3, figsize=(8, 4),dpi=300)
@@ -83,7 +88,7 @@ for cb in cb_values:
 
 plt.tight_layout()
 #plt.show()
-plt.savefig("./output/figure-6-a.pdf",format='pdf', bbox_inches='tight', pad_inches = 0)
+plt.savefig("./charts/output/figure-6-a.pdf",format='pdf', bbox_inches='tight', pad_inches = 0)
 
 
 

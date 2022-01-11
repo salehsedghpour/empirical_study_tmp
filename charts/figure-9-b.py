@@ -1,9 +1,14 @@
+import os, sys
+currentdir = os.path.dirname(os.path.realpath(__file__))
+parentdir = os.path.dirname(currentdir)
+sys.path.append(parentdir)
+
 import utils
 import pandas as pd
 import matplotlib.pyplot as plt
 
 
-df = pd.read_csv('../logs/retry-experiments.log')
+df = pd.read_csv('./logs/retry-experiments.log')
 
 
 fig, axs = plt.subplots(nrows=1, ncols=1, figsize=(7, 4),dpi=300)
@@ -83,7 +88,7 @@ for retry_to in retry_timeouts:
 
 plt.tight_layout()
 # plt.show()
-plt.savefig("retry-rt-different-timeouts.pdf",format='pdf', bbox_inches='tight', pad_inches = 0.1)
+plt.savefig("./charts/output/retry-rt-different-timeouts.pdf",format='pdf', bbox_inches='tight', pad_inches = 0.1)
 
 
 

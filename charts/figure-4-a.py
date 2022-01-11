@@ -1,3 +1,8 @@
+import os, sys
+currentdir = os.path.dirname(os.path.realpath(__file__))
+parentdir = os.path.dirname(currentdir)
+sys.path.append(parentdir)
+
 import pandas as pd
 import matplotlib.pyplot as plt
 import utils
@@ -9,7 +14,7 @@ capacity_online_boutique = 230
 
 challenging_services = ["frontend", "recommendationservice", "productcatalogservice"]
 
-df = pd.read_csv('../logs/cb-experiment.log')
+df = pd.read_csv('./logs/cb-experiment.log')
 
 
 
@@ -58,7 +63,6 @@ for layer in configuration_layer:
             j = 2
         data = df.loc[(df['circuit_breaker'] == 20) & (df['traffic_ratio'] == 1.2) &
                       (df['configured_layers'] == str(layer)) & (df['attempt'] == 1)]
-
         data_col = utils.get_status_codes_from_prometheus(service, data['start'], data['end'])
         success = {
             "data": [],
@@ -151,7 +155,7 @@ plt.xticks([0, 60, 120, 180, 240])
 plt.tight_layout()
 
 #plt.show()
-plt.savefig("./output/fig-4-a.pdf",format="pdf", bbox_inches='tight', pad_inches = 0)
+plt.savefig("./charts/output/fig-4-a.pdf",format="pdf", bbox_inches='tight', pad_inches = 0)
 
 
 

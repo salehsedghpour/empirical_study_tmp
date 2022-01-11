@@ -1,9 +1,14 @@
+import os, sys
+currentdir = os.path.dirname(os.path.realpath(__file__))
+parentdir = os.path.dirname(currentdir)
+sys.path.append(parentdir)
+
 import pandas as pd
 import matplotlib.pyplot as plt
 import utils
 
 
-df = pd.read_csv('../logs/cb-experiment.log')
+df = pd.read_csv('./logs/cb-experiment.log')
 
 fig, axs = plt.subplots(nrows=1, ncols=1, figsize=(7, 4),dpi=300)
 
@@ -57,6 +62,6 @@ for cb in cb_values:
 
 plt.tight_layout()
 #plt.show()
-plt.savefig("./output/figure-6-b.pdf",format='pdf', bbox_inches='tight', pad_inches = 0.1)
+plt.savefig("./charts/output/figure-6-b.pdf",format='pdf', bbox_inches='tight', pad_inches = 0.1)
 
 

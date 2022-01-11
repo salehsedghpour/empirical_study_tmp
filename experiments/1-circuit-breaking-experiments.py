@@ -1,5 +1,8 @@
 '''Different circuit breaking will applied on different layers with different values'''
-
+import os, sys
+currentdir = os.path.dirname(os.path.realpath(__file__))
+parentdir = os.path.dirname(currentdir)
+sys.path.append(parentdir)
 from kubernetes import client, config
 import utils, yaml, logging, time, csv
 
@@ -30,7 +33,7 @@ configuration = {
     },
     "experiment_duration": 360000,
     "single_experiment_duration": 300,
-    "log_dir": "../logs/",
+    "log_dir": "./logs/",
     "repeat_factor": 5,
 }
 
@@ -59,7 +62,7 @@ def online_boutique():
     # Deploy the load generator
     for traffic_ratio in configuration['static_traffic_ratio']:
         for service in loadgenerator_service:
-            with open('../yaml-files/Deployment/' + service + '.yaml') as f:
+            with open('./yaml-files/Deployment/' + service + '.yaml') as f:
                 dep = yaml.safe_load(f)
                 concurrency_value = int(traffic_ratio * configuration['capacities']['online_boutique'])
                 experiment_duration = configuration['experiment_duration']

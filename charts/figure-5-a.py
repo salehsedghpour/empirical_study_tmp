@@ -1,3 +1,8 @@
+import os, sys
+currentdir = os.path.dirname(os.path.realpath(__file__))
+parentdir = os.path.dirname(currentdir)
+sys.path.append(parentdir)
+
 import pandas as pd
 import matplotlib.pyplot as plt
 import json
@@ -9,7 +14,7 @@ capacity_online_boutique = 230
 
 challenging_services = ["frontend"]
 
-df = pd.read_csv('../logs/cb-experiment.log')
+df = pd.read_csv('./logs/cb-experiment.log')
 
 
 i = 0
@@ -81,4 +86,4 @@ plt.xticks([0, 60, 120, 180, 240])
 
 plt.tight_layout()
 #plt.show()
-plt.savefig("./output/figure-5-a.pdf",format='pdf', bbox_inches='tight', pad_inches = 0)
+plt.savefig("./charts/output/figure-5-a.pdf",format='pdf', bbox_inches='tight', pad_inches = 0)

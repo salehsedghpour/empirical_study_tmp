@@ -1,3 +1,8 @@
+import os, sys
+currentdir = os.path.dirname(os.path.realpath(__file__))
+parentdir = os.path.dirname(currentdir)
+sys.path.append(parentdir)
+
 import utils
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -9,7 +14,7 @@ cb_values = [1, 20, 1024]
 capacity_online_boutique = 230
 challenging_services = ["frontend", "recommendationservice", "productcatalogservice"]
 
-df = pd.read_csv('../logs/retry-experiments.log')
+df = pd.read_csv('./logs/retry-experiments.log')
 
 
 fig, axs = plt.subplots(nrows=6, ncols=3, figsize=(8, 8), sharex=True, dpi=300)
@@ -173,7 +178,7 @@ plt.xticks([0, 60,120,180,240])
 
 plt.tight_layout()
 #plt.show()
-plt.savefig("./output/figure-7-a.pdf",format='pdf', bbox_inches='tight', pad_inches = 0)
+plt.savefig("./charts/output/figure-7-a.pdf",format='pdf', bbox_inches='tight', pad_inches = 0)
 
 
 
